@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="description" content="We identify agreement bias, a critical limitation that hinders MLLMs from serving as verifiers of agent behavior, and demonstrate its adverse effects on existing applications. We discuss methods to evaluate verifier quality and introduce SGV, a simple yet effective method that improves verification across multiple models and benchmarks.">
+  <meta name="description" content="We identify agreement bias, a critical limitation that hinders MLLMs from serving as verifiers of agent behavior. We demonstrate its adverse effects on existing applications, discuss methods for evaluating and improving MLLM-based verification, and introduce SGV, a simple yet effective method that improves verification across multiple models and environments.">
   <meta property="og:title" content="Let's Think in Two Steps: Mitigating Agreement Bias in MLLMs with Self-Grounded Verification">
-  <meta property="og:description" content="We identify agreement bias, a critical limitation that hinders MLLMs from serving as verifiers of agent behavior, and demonstrate its adverse effects on existing applications. We discuss methods to evaluate verifier quality and introduce SGV, a simple yet effective method that improves verification across multiple models and benchmarks.">
+  <meta property="og:description" content="We identify agreement bias, a critical limitation that hinders MLLMs from serving as verifiers of agent behavior. We demonstrate its adverse effects on existing applications, discuss methods for evaluating and improving MLLM-based verification, and introduce SGV, a simple yet effective method that improves verification across multiple models and environments.">
   <meta property="og:url" content="https://mshalimay.github.io/agreement-bias-sgv/">
   <meta property="og:image" content="https://mshalimay.github.io/agreement-bias-sgv/static/images/overview.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
 
   <meta name="twitter:title" content="Let's Think in Two Steps: Mitigating Agreement Bias in MLLMs with Self-Grounded Verification">
-  <meta name="twitter:description" content="We identify agreement bias, a critical limitation that hinders MLLMs from serving as verifiers of agent behavior, and demonstrate its adverse effects on existing applications. We discuss methods to evaluate verifier quality and introduce SGV, a simple yet effective method that improves verification across multiple models and benchmarks.">
+  <meta name="twitter:description" content="We identify agreement bias, a critical limitation that hinders MLLMs from serving as verifiers of agent behavior. We demonstrate its adverse effects on existing applications, discuss methods for evaluating and improving MLLM-based verification, and introduce SGV, a simple yet effective method that improves verification across multiple models and environments.">
   <meta name="twitter:image" content="https://mshalimay.github.io/agreement-bias-sgv/static/images/overview.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -202,7 +202,7 @@
   
             <p>
               We study <b>verifiers</b>—functions that approximate human judgment of agent behavior in interactive environments.
-              An agent is tasked to complete \(q \in \mathcal{Q}\) through a series of actions \(a_t\). Given a history of environment states \(s_{r:t} \equiv [s_r, ..., s_t]\), the agent executes an action sampled from a policy \(\pi\): \(a_t = \pi(s_{r:t}, q)\), leading to a new state \(s_{t+1}\). The repetition of this process yields a <b>trajectory</b> \(\tau_{r:t} \equiv (s_r, a_r, \ldots, s_t, a_t)\) that serves as the basis for evaluation.
+              An agent completes a task \(q \in \mathcal{Q}\) through a series of actions \(a_t\). Given a history of environment states \(s_{r:t} \equiv [s_r, ..., s_t]\), the agent executes an action sampled from a policy \(\pi\): \(a_t = \pi(s_{r:t}, q)\), leading to a new state \(s_{t+1}\). The repetition of this process yields a <b>trajectory</b> \(\tau_{r:t} \equiv (s_r, a_r, \ldots, s_t, a_t)\) that serves as the basis for evaluation.
             </p>
   
             <p>
@@ -239,7 +239,7 @@
                     The verifier influences the agent's policy during execution. Examples include:
                   </p>
                   <ul>
-                    <li>Online supervision: text/scalar rewards to steer agent's toward task completion or to prevent undesired behavior</li>
+                    <li>Online supervision: text/scalar rewards to steer agents toward task completion or to prevent undesired behavior</li>
                     <li>Training signal for online methods such as reinforcement learning</li>
                     <li>Ranking action-trajectory pairs in methods such as (Tree) Search</li>
                   </ul>
@@ -254,7 +254,7 @@
   
             <p>
               A conventional approach to build an MLLM-based verifier is to prompt the model with the task
-              \(q\), a trajectory \(\tau\), and additional context \(C\) (rubrics, reasoning steps, formatting), then maps the
+              \(q\), a trajectory \(\tau\), and additional context \(C\) (rubrics, reasoning steps, formatting), then map the
               model completion \(y\) into a reward:
             </p>
   
@@ -266,7 +266,7 @@
               However, this approach is subject to a critical failure mode we call <b>agreement bias</b>: a tendency to
               <b>over-validate agent behavior</b>—judging flawed trajectories as aligned with \(q\) despite carefully crafted
               instructions, established test-time scaling techniques, and decoding algorithms. This degrades the quality of
-              \(r_{\text{MLLM}}\) and can <b>adversely affect methods</b> that make direct or indirect uses of it.
+                \(r_{\text{MLLM}}\) and can <b>adversely affect methods</b> that make direct or indirect uses of it.
             </p>
   
             <hr style="margin: 2rem 0;">
@@ -276,8 +276,7 @@
   
             <p>
               We propose <b>Self-Grounded Verification (SGV)</b>, a lightweight two-step method that substantially improves
-              MLLM verifiers by leveraging the model's own sampling mechanisms to enable more effective use of their world knowledge, alignment, and reasoning capabilities. 
-            </p>
+              MLLM verifiers by leveraging the model's own sampling mechanisms to enable more effective use of its world knowledge, alignment, and reasoning capabilities.            </p>
   
             <div class="box" style="text-align:left; margin-top: 1rem;">
               <ol style="margin-left: 1.25rem;">
@@ -326,14 +325,14 @@
             
             <br>
             <br>
-            For works proposing verifiers (or artifacts derived from them), we highlight the importance to:
+            For works proposing verifiers (or artifacts derived from them), we highlight the importance of:
             <br>
             <ul>
               <li>
                 Report fine-grained metrics that capture a verifier's ability to both reinforce desired behavior and, <b>crucially</b>, to identify failures, as the latter is essential to provide feedback when agent behavior is flawed and requires correction;
               </li>
               <li>
-                Evaluate a verifier not only by its performance to judge post-hoc trajectories (most common) but also by its impact on downstream applications, as leniency-strictness tradeoffs inherent to verification renders offline metrics insufficient to characterize a verifier's practical utility.
+                Evaluate a verifier not only by its performance to judge post-hoc trajectories (most common) but also by its impact on downstream applications, as leniency-strictness tradeoffs inherent to verification render offline metrics insufficient to characterize a verifier's practical utility.
               </li>
             </ul>
           
@@ -462,7 +461,7 @@
             <summary>Verifier Implementations</summary>
             <div class="inner">
               <p>
-                To ensure strong and generalizable findings, we implement strong verifier baselines and explore several design choices, including: Chain-of-thought (CoT) prompting, Set-of-marks (SoM) prompting, Majority voting/self-consistency, Reasoning models, and 28+ variations to prompt/scoring templates including common interventions to mitigate biases in LLM judgements.
+                To ensure strong and generalizable findings, we implement strong verifier baselines and explore several design choices, including: Chain-of-thought (CoT) prompting, Set-of-marks (SoM) prompting, Majority voting/self-consistency, Reasoning models, and 28+ variations to prompt/scoring templates including common interventions to mitigate biases in LLM judgments.
                 For VisualWebArena, we additionally consider human-written benchmark-specific rubrics explored in prior work and adopted by subsequent work for self-refinement, tree-search, and finetuning.
               </p>
             </div>
@@ -593,7 +592,7 @@
           </noscript>
 
           <p style="margin-top: 1.25rem; margin-bottom: 0.75rem;">
-            Agreement bias is resilient to estabilished test-time scaling techniques such as CoT, Set-of-Marks (SoM), and autonomously generated reasoning steps (thinking).
+            Agreement bias is resilient to established test-time scaling techniques such as CoT, Set-of-Marks (SoM), and autonomously generated reasoning steps (thinking).
           </p>
           <div id="table2"></div>
           <noscript>
@@ -606,7 +605,7 @@
 
           <h4 class="title is-5" style="margin-top: 0.5rem; margin-bottom: 0.5rem;">Agreement bias and MLLM output distributions</h4>
           <p style="margin-bottom: 0.75rem;">
-            Agreement bias manifests as a skew in MLLM output distributions toward favorable labels. This pattern is consistent across prompt/scoring templates and is largely unaffected by interventions to mitigate biases in LLM judgements <a href="https://arxiv.org/abs/2502.06655" target="_blank">[1]</a>
+            Agreement bias manifests as a skew in MLLM output distributions toward favorable labels. This pattern is consistent across prompt/scoring templates and is largely unaffected by interventions to mitigate biases in LLM judgments <a href="https://arxiv.org/abs/2502.06655" target="_blank">[1]</a>
             <a href="https://llm-judge-bias.github.io/" target="_blank">[2]</a> and grounding via web-search tools <a href="https://openreview.net/forum?id=Sx038qxjek" target="_blank">[3]</a>.
             
           </p>
@@ -620,7 +619,7 @@
           </noscript>
 
           <p style="margin-top: 1rem; margin-bottom: 0.75rem;">
-            Critically, the probability of sampling a correct verification from the model's output distribution on failure cases can be close to chance. This explain the ineffectiveness of methods such as majority voting/self-consistency and indicates an imbalance to be accounted for in test-time and training methods that rely on sampling (see paper for experiments on the potential for such approaches).
+            Critically, the probability of sampling a correct verification from the model's output distribution on failure cases can be close to chance. This explains the ineffectiveness of methods such as majority voting/self-consistency and indicates an imbalance to be accounted for in test-time and training methods that rely on sampling (see paper for experiments on the potential for such approaches).
           </p>
 
           <div id="table3"></div>
@@ -658,8 +657,8 @@
 
           <br>
           <br>
-          In self-refinement, agreement bias hinder the agent's ability to self-improve, in contrast to SGV which leads to consistent gains across refinement iterations.
-
+          In self-refinement, agreement bias hinders the agent's ability to self-improve, in contrast to SGV which leads to consistent gains across refinement iterations.
+          
           <div id="fig-reflexion"></div>
           <noscript>
             <div class="content">
@@ -668,7 +667,7 @@
           </noscript>
 
           <div style="height: 1.25rem;"></div>
-          Similarly, agreement bias reduces the effectiveness of MLLM-derived rewards in online methods. In online supervision and diffusion policy steering, the (strong) MLLM verifier fails to deliver meaningful improvements. In contrast, SGV leads to substantial gains, setting a new state-of-the-art in VisualWebArena while utilizing substantially less tokens, no access to previous trajectories, and enabling backtracking via native web actions.
+          Similarly, agreement bias reduces the effectiveness of MLLM-derived rewards in online methods. In online supervision and diffusion policy steering, the (strong) MLLM verifier fails to deliver meaningful improvements. In contrast, SGV leads to substantial gains, setting a new state-of-the-art in VisualWebArena while utilizing substantially fewer tokens, no access to previous trajectories, and enabling backtracking via native web actions.
 
           <br>
           <br>
