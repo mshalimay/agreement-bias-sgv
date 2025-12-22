@@ -133,5 +133,28 @@ body {
   font-size: smaller;
 }
 
-
-
+details.expander {
+border: 1px solid rgba(0,0,0,0.08);
+border-radius: 10px;
+padding: 0.75rem 1rem;
+margin: 0.75rem 0;
+background: rgba(0,0,0,0.015);
+}
+details.expander summary {
+cursor: pointer;
+font-weight: 600;
+list-style: none;
+outline: none;
+}
+details.expander summary::-webkit-details-marker { display: none; }
+details.expander summary:before {
+content: "▸";
+display: inline-block;
+margin-right: 0.5rem;
+transform: translateY(-1px);
+opacity: 0.7;
+}
+details.expander[open] summary:before { content: "▾"; }
+details.expander .inner {
+margin-top: 0.75rem;
+}

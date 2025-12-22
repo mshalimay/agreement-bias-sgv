@@ -1,0 +1,148 @@
+<!-- Table 1: Verification of digital agent trajectories -->
+<div style="margin: 2rem 0;">
+  <div class="scrollable-table">
+    <table class="table is-striped is-hoverable">
+      <thead>
+        <tr>
+          <th rowspan="2" style="text-align: left;">Model</th>
+          <th colspan="5">(a) No SGV</th>
+          <th colspan="5">(b) SGV</th>
+          <th colspan="3">(b) − (a)</th>
+        </tr>
+        <tr>
+          <th>Acc</th>
+          <th>TPR</th>
+          <th>TNR</th>
+          <th>Bias</th>
+          <th>dSkew</th>
+          <th>Acc</th>
+          <th>TPR</th>
+          <th>TNR</th>
+          <th>Bias</th>
+          <th>dSkew</th>
+          <th>Acc&nbsp;(&uarr;)</th>
+          <th>Bias&nbsp;(&darr;)</th>
+          <th>dSkew&nbsp;(&darr;)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align: left;">Gemini 2.0</td>
+          <td>61</td><td>96</td><td>42</td><td>36</td><td>34</td>
+          <td>69</td><td>94</td><td>55</td><td>27</td><td>23</td>
+          <td style="color: #16a34a; font-weight: bold;">+9</td>
+          <td style="color: #16a34a; font-weight: bold;">-9</td>
+          <td style="color: #16a34a; font-weight: bold;">-11</td>
+        </tr>
+        <tr>
+          <td style="text-align: left;">Gemini 2.5 Lite</td>
+          <td>55</td><td>96</td><td>34</td><td>41</td><td>39</td>
+          <td>65</td><td>90</td><td>51</td><td>29</td><td>25</td>
+          <td style="color: #16a34a; font-weight: bold;">+9</td>
+          <td style="color: #16a34a; font-weight: bold;">-11</td>
+          <td style="color: #16a34a; font-weight: bold;">-13</td>
+        </tr>
+        <tr>
+          <td style="text-align: left;">Gemini 2.5 Flash</td>
+          <td>68</td><td>94</td><td>55</td><td>27</td><td>24</td>
+          <td>80</td><td>88</td><td>76</td><td>12</td><td>8</td>
+          <td style="color: #16a34a; font-weight: bold;">+12</td>
+          <td style="color: #16a34a; font-weight: bold;">-15</td>
+          <td style="color: #16a34a; font-weight: bold;">-16</td>
+        </tr>
+        <tr>
+          <td style="text-align: left;">Gemini-2.5-Flash (T)</td>
+          <td>74</td><td>92</td><td>64</td><td>21</td><td>18</td>
+          <td>82</td><td>89</td><td>78</td><td>10</td><td>6</td>
+          <td style="color: #16a34a; font-weight: bold;">+8</td>
+          <td style="color: #16a34a; font-weight: bold;">-11</td>
+          <td style="color: #16a34a; font-weight: bold;">-13</td>
+        </tr>
+        <tr>
+          <td style="text-align: left;">Qwen3-32b</td>
+          <td>69</td><td>92</td><td>57</td><td>25</td><td>21</td>
+          <td>76</td><td>88</td><td>71</td><td>14</td><td>11</td>
+          <td style="color: #16a34a; font-weight: bold;">+7</td>
+          <td style="color: #16a34a; font-weight: bold;">-11</td>
+          <td style="color: #16a34a; font-weight: bold;">-10</td>
+        </tr>
+        <tr>
+          <td style="text-align: left;">Qwen3-235b-a22b</td>
+          <td>65</td><td>93</td><td>51</td><td>28</td><td>25</td>
+          <td>76</td><td>89</td><td>70</td><td>15</td><td>12</td>
+          <td style="color: #16a34a; font-weight: bold;">+10</td>
+          <td style="color: #16a34a; font-weight: bold;">-14</td>
+          <td style="color: #16a34a; font-weight: bold;">-13</td>
+        </tr>
+        <tr>
+          <td style="text-align: left;">Qwen3-235b-a22b (T)</td>
+          <td>66</td><td>92</td><td>53</td><td>27</td><td>24</td>
+          <td>77</td><td>91</td><td>71</td><td>15</td><td>12</td>
+          <td style="color: #16a34a; font-weight: bold;">+11</td>
+          <td style="color: #16a34a; font-weight: bold;">-12</td>
+          <td style="color: #16a34a; font-weight: bold;">-12</td>
+        </tr>
+        <tr>
+          <td style="text-align: left;">GPT-4.1 Mini</td>
+          <td>60</td><td>96</td><td>40</td><td>37</td><td>35</td>
+          <td>74</td><td>92</td><td>65</td><td>17</td><td>14</td>
+          <td style="color: #16a34a; font-weight: bold;">+14</td>
+          <td style="color: #16a34a; font-weight: bold;">-20</td>
+          <td style="color: #16a34a; font-weight: bold;">-21</td>
+        </tr>
+        <tr>
+          <td style="text-align: left;">GPT-4.1</td>
+          <td>74</td><td>90</td><td>64</td><td>19</td><td>15</td>
+          <td>81</td><td>87</td><td>78</td><td>10</td><td>6</td>
+          <td style="color: #16a34a; font-weight: bold;">+7</td>
+          <td style="color: #16a34a; font-weight: bold;">-9</td>
+          <td style="color: #16a34a; font-weight: bold;">-9</td>
+        </tr>
+        <tr>
+          <td style="text-align: left;">GPT-o1 (T)</td>
+          <td>70</td><td>80</td><td>62</td><td>22</td><td>16</td>
+          <td>78</td><td>83</td><td>73</td><td>13</td><td>7</td>
+          <td style="color: #16a34a; font-weight: bold;">+7</td>
+          <td style="color: #16a34a; font-weight: bold;">-9</td>
+          <td style="color: #16a34a; font-weight: bold;">-8</td>
+        </tr>
+        <tr>
+          <td style="text-align: left;">GPT-o4 (T)</td>
+          <td>78</td><td>88</td><td>71</td><td>11</td><td>7</td>
+          <td>84</td><td>86</td><td>82</td><td>6</td><td>2</td>
+          <td style="color: #16a34a; font-weight: bold;">+6</td>
+          <td style="color: #16a34a; font-weight: bold;">-6</td>
+          <td style="color: #16a34a; font-weight: bold;">-5</td>
+        </tr>
+        <tr>
+          <td style="text-align: left;">GPT-5-Nano (T)</td>
+          <td>72</td><td>84</td><td>65</td><td>16</td><td>11</td>
+          <td>76</td><td>82</td><td>73</td><td>10</td><td>6</td>
+          <td style="color: #16a34a; font-weight: bold;">+4</td>
+          <td style="color: #16a34a; font-weight: bold;">-6</td>
+          <td style="color: #16a34a; font-weight: bold;">-5</td>
+        </tr>
+        <tr>
+          <td style="text-align: left;">GPT-5 (T)</td>
+          <td>81</td><td>86</td><td>78</td><td>8</td><td>4</td>
+          <td>86</td><td>85</td><td>87</td><td>2</td><td>1</td>
+          <td style="color: #16a34a; font-weight: bold;">+5</td>
+          <td style="color: #16a34a; font-weight: bold;">-6</td>
+          <td style="color: #16a34a; font-weight: bold;">-3</td>
+        </tr>
+        <tr>
+          <td style="text-align: left;">Llama-4-Maverick-17B-128E</td>
+          <td>60</td><td>92</td><td>44</td><td>33</td><td>29</td>
+          <td>65</td><td>89</td><td>54</td><td>25</td><td>22</td>
+          <td style="color: #16a34a; font-weight: bold;">+5</td>
+          <td style="color: #16a34a; font-weight: bold;">-7</td>
+          <td style="color: #16a34a; font-weight: bold;">-8</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="content is-small">
+    <p><strong>(T)</strong> = Thinking enabled with the maximum thinking budget for the corresponding model.</p>
+    <p>Averages across VisualWebArena and OSWorld, where agent success rates are 47% and 22%, respectively.</p>
+  </div>
+</div>

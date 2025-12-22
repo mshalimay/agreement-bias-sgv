@@ -2,21 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="description" content="We propose Self-Grounded Verification to address agreement bias in MLLMs. SGV achieves gains across multiple domains, including a new SoTA on VisualWebArena.">
+  <meta name="description" content="We identify agreement bias, a critical limitation that hinders MLLMs from serving as verifiers of agent behavior, and demonstrate its adverse effects on existing applications. We discuss methods to evaluate verifier quality and introduce SGV, a simple yet effective method that improves verification across multiple models and benchmarks.">
   <meta property="og:title" content="Let's Think in Two Steps: Mitigating Agreement Bias in MLLMs with Self-Grounded Verification">
-  <meta property="og:description" content="We propose Self-Grounded Verification to address agreement bias in MLLMs. SGV achieves gains across multiple domains, including a new SoTA on VisualWebArena.">
-  <meta property="og:url" content="https://self-grounded-verification.github.io">
-  <!-- Optimal dimensions are 1200x630. -->
-  <meta property="og:image" content="https://self-grounded-verification.github.io/static/images/banner.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
+  <meta property="og:description" content="We identify agreement bias, a critical limitation that hinders MLLMs from serving as verifiers of agent behavior, and demonstrate its adverse effects on existing applications. We discuss methods to evaluate verifier quality and introduce SGV, a simple yet effective method that improves verification across multiple models and benchmarks.">
+  <meta property="og:url" content="https://mshalimay.github.io/agreement-bias-sgv/">
+  <meta property="og:image" content="https://mshalimay.github.io/agreement-bias-sgv/static/images/overview.svg">
   <meta name="twitter:title" content="Let's Think in Two Steps: Mitigating Agreement Bias in MLLMs with Self-Grounded Verification">
-  <meta name="twitter:description" content="We propose Self-Grounded Verification to address agreement bias in MLLMs. SGV achieves gains across multiple domains, including a new SoTA on VisualWebArena.">
-  <!-- Optimal dimensions are 1200x600. -->
-  <meta name="twitter:image" content="https://self-grounded-verification.github.io/static/images/banner-twitter.png">
+  <meta name="twitter:description" content="We identify agreement bias, a critical limitation that hinders MLLMs from serving as verifiers of agent behavior, and demonstrate its adverse effects on existing applications. We discuss methods to evaluate verifier quality and introduce SGV, a simple yet effective method that improves verification across multiple models and benchmarks.">
+  <meta name="twitter:image" content="https://mshalimay.github.io/agreement-bias-sgv/static/images/overview.svg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <title>Let's Think in Two Steps: Mitigating Agreement Bias in MLLMs with Self-Grounded Verification</title>
   <link rel="icon" type="image/png" href="static/images/favicon-96x96.png" sizes="96x96">
   <link rel="icon" type="image/svg+xml" href="static/images/favicon.svg">
@@ -68,6 +63,18 @@
       }
   </style>
 
+  <!-- Math rendering (for equations in the evaluation/metrics section) -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)'], ['$', '$']],
+        displayMath: [['\\[', '\\]']]
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
   <script defer src="static/js/fontawesome.all.min.js"></script>
@@ -84,35 +91,16 @@
         <div class="column has-text-centered">
           <h1 class="title is-1 publication-title">Let's Think in Two Steps:<br>Mitigating Agreement Bias in MLLMs with<br>Self-Grounded Verification</h1>
           <div class="is-size-5 publication-authors">
-            <span class="author-block">Anonymous Authors</span>
+            <span class="author-block">Moises Andrade Joonhyuk Cha Brandon Ho Vriksha Srihari Karmesh Yadav Zsolt Kira</span>
+            <span class="author-block" style="display: block; margin-top: 0.5rem; font-size: 0.9em; opacity: 0.8;">Georgia Institute of Technology</span>
           </div>
 
           <div class="column has-text-centered">
+            <!-- Publication Links -->
             <div class="publication-links">
+              <!-- arXiv -->
               <span class="link-block">
-                <a href="#"
-                   target="_blank"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                    <i class="fas fa-file-pdf"></i>
-                  </span>
-                  <span>Paper</span>
-                </a>
-              </span>
-
-              <span class="link-block">
-                <a href="#"
-                   target="_blank"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                    <i class="fab fa-github"></i>
-                  </span>
-                  <span>Code</span>
-                </a>
-              </span>
-
-              <span class="link-block">
-                <a href="#"
+                <a href="https://arxiv.org/abs/2507.11662"
                    target="_blank"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
@@ -121,6 +109,42 @@
                   <span>arXiv</span>
                 </a>
               </span>
+              <!-- Paper -->
+              <span class="link-block">
+                <a href="static/paper.pdf"
+                   target="_blank"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- Code -->
+              <span class="link-block">
+                <a href="https://github.com/mshalimay/mllm-verifiers-abias-sgv"
+                   target="_blank"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                </a>
+              </span>
+              <!-- Data -->
+              <span class="link-block">
+                <a href="https://drive.google.com/drive/folders/15nAWNkyo6Jhsxl6RZg8cFRS_6jP-Xr-H"
+                   target="_blank"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fas fa-folder"></i>
+                  </span>
+                  <span>Data</span>
+                </a>
+              </span>
+
+
+            
             </div>
           </div>
         </div>
@@ -129,20 +153,7 @@
   </div>
 </section>
 
-<section class="hero teaser">
-  <div class="container is-max-desktop">
-    <div class="hero-body">
-      <img src="static/images/comparison.svg"
-           alt="Comparison between the baseline CoT verifier and our SVG method."
-           style="width: 100%; max-width: 800px; margin: 0 auto 1.5rem; display: block;"
-      >
-      <h2 class="subtitle has-text-centered">
-        Our Self-Grounded Verification (SGV) method uses a two-step process to reduce agreement bias in MLLM verifiers.
-      </h2>
-    </div>
-  </div>
-</section>
-
+<!-- Abstract -->
 <section class="section hero is-light">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
@@ -150,16 +161,7 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Verifiers — functions assigning rewards to agent behavior — have been key for AI progress in domains such as math and board games.
-            However, extending these gains to domains without clear-cut success criteria (e.g., computer use) remains a challenge: while humans can recognize suitable outcomes, translating this intuition into scalable rules is non-trivial.
-            Multimodal Large Language Models (MLLMs) emerge as a promising solution, given their world knowledge, human-preference alignment, and reasoning skills.
-            We evaluate MLLMs as verifiers of agent trajectories across web navigation, computer use, and robotic manipulation, and identify a critical limitation: agreement bias, a strong tendency for MLLMs to favor information in their context window, often generating chains of thought to rationalize flawed behavior.
-            This bias is pervasive across models, resilient to test-time scaling, and can impact several methods using MLLMs as evaluators.
-            Notably, it occurs despite MLLMs showing strong, human-aligned priors on desired behavior.
-            To address this, we propose Self-Grounded Verification (SGV), a lightweight method that enables more effective use of MLLMs' knowledge and reasoning by harnessing their own sampling mechanisms via unconditional and conditional generation.
-            SGV operates in two steps: first, the MLLM is elicited to retrieve broad priors about task completion, independent of the data under evaluation.
-            Then, conditioned on the self-generated priors, it reasons over and evaluates a candidate trajectory.
-            Enhanced with SGV, MLLM verifiers show gains of up to 20 points in accuracy and failure detection rates, and can perform real-time supervision of heterogeneous agents, boosting task completion of a GUI specialist in <a href="https://os-world.github.io" target="_blank">OSWorld</a>, a diffusion policy in <a href="https://robomimic.github.io" target="_blank">robomimic</a>, and a <a href="https://arxiv.org/abs/2210.03629" target="_blank">ReAct</a> agent in <a href="https://jykoh.com/vwa" target="_blank">VisualWebArena</a> — setting a new state of the art on the benchmark, surpassing the previous best by 48%.
+            Verifiers—functions assigning rewards to agent behavior—have been key for AI progress in domains such as math, code and games. However, extending these gains to domains without clear-cut success criteria (e.g., computer use) remains a challenge: while humans can recognize desired outcomes, translating this intuition into scalable rules is nontrivial. Multimodal Large Language Models (MLLMs) emerge as a promising solution, given their world knowledge, human-preference alignment, and reasoning skills. We evaluate MLLMs as verifiers of agent trajectories across web navigation, computer use, and robotic manipulation, and identify a critical limitation: a strong tendency to over-validate agent behavior, a phenomenon we call agreement bias. We show that agreement bias is pervasive across models, is resilient to test-time scaling, and can affect existing methods relying on MLLM-based evaluations. We discuss metrics to measure and methods to mitigate this bias, and introduce Self-Grounded Verification (SGV), a lightweight method that harnesses MLLMs' own sampling mechanisms by modulating (un)conditional generation to better leverage their knowledge, alignment, and reasoning. SGV operates in two steps: first, the MLLM is elicited to generate broad priors about desired agent behavior, independent of the data under evaluation. Then, conditioned on self-generated priors, it reasons over and evaluates a candidate trajectory. SGV yields more human-aligned evaluations, improving verification across models, metrics, and benchmarks,  with gains of up to 25pp in failure identification, 14pp in accuracy, and benefits extending to downstream applications. In self-refinement and online supervision, SGV boosts task completion of a GUI specialist in OSWorld, a diffusion policy in robomimic, and a ReAct agent in VisualWebArena—setting a new state of the art, surpassing the previous best by 20pp. Finally, we quantitatively analyze and provide practical guidance on several design choices for MLLM verifiers, and release an updated version of VisualWebArena featuring more human-aligned evaluators, strong agent baselines, environment parallelism with improved execution fidelity, and runtime speedups of over 10x.
           </p>
         </div>
       </div>
@@ -167,354 +169,583 @@
   </div>
 </section>
 
+<!-- Overview -->
 <section class="section hero">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <div class="content has-text-justified">
-          <img src="static/images/overview.svg"
-               alt="Summary of findings."
-               style="width: 100%; margin: 0 auto 1.5rem; display: block;"
-          >
-          <div style="display: flex; flex-direction: column; gap: 1rem;">
-            <span><b>Top</b>: example of a task in <a href="https://jykoh.com/vwa" target="_blank">VisualWebArena</a> and a corresponding agent trajectory.</span>
-            <span><b>Middle</b>: an MLLM verifier validates clearly flawed agent behavior, generating reasoning to rationalize its incorrect judgment and reinforcing brittle behavior.</span>
-            <span><b>Bottom</b>: Self-Grounded Verification leads to more accurate verification and enables the agent to backtrack.</span>
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+  
+          <h2 class="title is-3">Overview</h2>
+  
+          <div class="content has-text-justified">
+  
+            <!-- Overview figure -->
+            <img src="static/images/overview.svg"
+                 alt="Summary of findings."
+                 style="width: 100%; margin: 0 auto 1.5rem; display: block;"
+            >
+  
+            <!-- Figure explanation -->
+            <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.25rem;">
+              <span><b>Top</b>: example of a task in <a href="https://jykoh.com/vwa" target="_blank">VisualWebArena</a> and a corresponding agent trajectory.</span>
+              <span><b>Middle</b>: an MLLM verifier validates and reinforces flawed agent behavior, generating reasoning to rationalize incorrect judgments.</span>
+              <span><b>Bottom</b>: <b>Self-Grounded Verification (SGV)</b> leads to more accurate verification and enables the agent to backtrack.</span>
+            </div>
+  
+            <hr style="margin: 2rem 0;">
+  
+            <!-- Problem Setup -->
+            <h3 class="title is-4" style="margin-top: 0.5rem;">Problem Setup</h3>
+  
+            <p>
+              We study <b>verifiers</b>—functions that approximate human judgment of agent behavior in interactive environments.
+              An agent is tasked to complete \(q \in \mathcal{Q}\) through a series of actions \(a_t\). Given a history of environment states \(s_{r:t} \equiv [s_r, ..., s_t]\), the agent executes an action sampled from a policy \(\pi\): \(a_t = \pi(s_{r:t}, q)\), leading to a new state \(s_{t+1}\). The repetition of this process yields a <b>trajectory</b> \(\tau_{r:t} \equiv (s_r, a_r, \ldots, s_t, a_t)\) that serves as the basis for evaluation.
+            </p>
+  
+            <p>
+              We define a
+              <b>multimodal verifier</b> as a function
+              \(r: \mathcal{T} \times \mathcal{Q} \to \mathbb{R} \times (\mathcal{V} \cup \{\emptyset\})\) that maps trajectory-task pairs to rewards consisting of a real-valued score and optional outputs in other modalities from \(\mathcal{V}\) (e.g., natural-language feedback).
+            </p>
+
+            <!-- Applications of Verifiers -->
+            <h3 class="title is-4" style="margin-top: 1.75rem; margin-bottom: 0.75rem;">Applications of Verifiers</h3>
+            <p>
+              To characterize the potential benefits and risks of MLLM verifiers, we unify the view of existing methods by how they use \(r\) and are therefore affected by its quality, categorizing them into <b>offline</b> and <b>online</b> settings.
+            </p>
+
+            <div class="columns">
+              <div class="column is-6">
+                <div class="box">
+                  <h4 class="title is-6" style="margin-bottom: 0.5rem;">Offline Applications</h4>
+                  <p style="margin-bottom: 0.75rem;">
+                    The verifier is applied to trajectories post-hoc. Examples include:
+                  </p>
+                  <ul>
+                    <li>Agent performance evaluation (e.g., trajectory \(\to\) task-completion scores).</li>
+                    <li>Filtering “successful” trajectories for finetuning.</li>
+                    <li>Self-refinement pipelines, such as inducing tools, memory, or reflection from past trajectories.</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="column is-6">
+                <div class="box">
+                  <h4 class="title is-6" style="margin-bottom: 0.5rem;">Online Applications</h4>
+                  <p style="margin-bottom: 0.75rem;">
+                    The verifier influences the agent's policy during execution. Examples include:
+                  </p>
+                  <ul>
+                    <li>Online supervision: text/scalar rewards to steer agent's toward task completion or to prevent undesired behavior</li>
+                    <li>Training signal for online methods such as reinforcement learning</li>
+                    <li>Ranking action-trajectory pairs in methods such as (Tree) Search</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+  
+            <hr style="margin: 2rem 0;">
+  
+            <!-- MLLM verifiers + agreement bias -->
+            <h3 class="title is-4" style="margin-top: 0.5rem;">MLLM Verifiers and Agreement Bias</h3>
+  
+            <p>
+              A conventional approach to build an MLLM-based verifier is to prompt the model with the task
+              \(q\), a trajectory \(\tau\), and additional context \(C\) (rubrics, reasoning steps, formatting), then maps the
+              model completion \(y\) into a reward:
+            </p>
+  
+            <p style="text-align:center; margin: 1rem 0;">
+              \(r_{\text{MLLM}}(q,\tau,C) = h\!\left(\prod_{i=1}^{n} P(y_i \mid y_{&lt;i}, q,\tau,C)\right)\)
+            </p>
+  
+            <p>
+              However, this approach is subject to a critical failure mode we call <b>agreement bias</b>: a tendency to
+              <b>over-validate agent behavior</b>—judging flawed trajectories as aligned with \(q\) despite carefully crafted
+              instructions, established test-time scaling techniques, and decoding algorithms. This degrades the quality of
+              \(r_{\text{MLLM}}\) and can <b>adversely affect methods</b> that make direct or indirect uses of it.
+            </p>
+  
+            <hr style="margin: 2rem 0;">
+  
+            <!-- SGV -->
+            <h3 class="title is-4" style="margin-top: 0.5rem;">Self-Grounded Verification (SGV)</h3>
+  
+            <p>
+              We propose <b>Self-Grounded Verification (SGV)</b>, a lightweight two-step method that substantially improves
+              MLLM verifiers by leveraging the model's own sampling mechanisms to enable more effective use of their world knowledge, alignment, and reasoning capabilities. 
+            </p>
+  
+            <div class="box" style="text-align:left; margin-top: 1rem;">
+              <ol style="margin-left: 1.25rem;">
+                <li style="margin-bottom: 1rem;">
+                  <b>Step 1 (Priors):</b> elicit broad priors \(\hat{k}_q\) about desired agent behavior for task \(q\),
+                  conditioned only on essential information needed to frame the task (e.g., initial state \(\tau_{0:t}\)):
+                  <div style="text-align:center; margin-top: 0.75rem;">
+                    \(\hat{k}_{q} = g\!\left(\prod_{i=1}^{n} P(y_i \mid y_{&lt;i}, \tau_{0:t}, C, q)\right)\)
+                  </div>
+                </li>
+                <li>
+                  <b>Step 2 (Verification):</b> evaluate the candidate trajectory conditioned on the self-generated priors:
+                  <div style="text-align:center; margin-top: 0.75rem;">
+                    \(r_{\text{SGV}}(\tau, C, q) =
+                    h\!\left(\prod_{i=1}^{n} P(y_i \mid y_{&lt;i}, q,\tau,C,\hat{k}_q)\right)\)
+                  </div>
+                </li>
+              </ol>
+            </div>
+  
+            <p>
+              Intuitively, step 1 encourages the model to explore its probability distribution freely, extracting knowledge pertinent to the task at hand and independent of the data under evaluation. In step 2, the MLLM evaluates a candidate trajectory by sampling from a conditional distribution induced by its own priors.
+              We hypothesize that MLLMs, given their extensive world knowledge, can generally produce human-aligned priors on desired behavior that can serve as impartial references for grounding the verification, leading to more truthful and accurate evaluation of agent behavior.
+            </p>
+  
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="section hero is-light">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Problem Setting</h2>
-        <div class="content has-text-justified">
-          <p>
-            Several breakthroughs in artificial intelligence can be viewed from the lens of search guided by verifiers — functions assigning rewards to agent behavior aligned with desired criteria.
-            However, while domains such as mathematics, programming, and board games benefit from relatively well-defined criteria to evaluate agent behavior, such clarity diminishes in open-ended settings.
-            Evaluation in such scenarios often requires nuanced criteria and reasoning over possibly long sequences of multimodal inputs.
-            Multimodal large language models (MLLMs) emerge as a promising solution to bridge this gap.
-          </p>
-          <p>
-            We consider two digital agent environments — <a href="https://jykoh.com/vwa" target="_blank">VisualWebArena</a> and <a href="https://os-world.github.io" target="_blank">OSWorld</a> — and the long-horizon robot manipulation suite <a href="https://robomimic.github.io" target="_blank">robomimic</a>.
-            Together, they span over 1,200 tasks across varied domains, where evaluating agent behavior demands nuanced criteria and multimodal reasoning.
-          </p>
-          <p>
-            In the offline setting, we evaluate how often MLLM verifiers match oracle verifiers in evaluation of agent trajectories.
-            In the online setting, we assess the ability of MLLM verifiers to evaluate and provide real-time feedback to guide agents towards task completion.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <h3 class="title is-4 has-text-centered" style="margin: 3rem auto 0;">
-      Task Examples
-    </h3>
-    <div id="results-carousel" class="carousel results-carousel">
-       <div class="item">
-        <img src="static/images/task examples/vwa-classifieds.png"
-             alt="Example of a task in VisualWebArena.">
-        <h2 class="subtitle has-text-centered" style="margin-top: 1rem;">
-          "Show me the most expensive collectible historical USA coin that is under $2000." (VisualWebArena)
-        </h2>
-      </div>
-      <div class="item">
-        <img src="static/images/task examples/vwa-shopping.png"
-             alt="Example of a task in VisualWebArena.">
-        <h2 class="subtitle has-text-centered" style="margin-top: 1rem;">
-          "I really like these shoes, but I am not satisfied with the color. Could you find me an item on this page for these shoes with a darker shade or color?" (VisualWebArena)
-        </h2>
-      </div>
-      <div class="item">
-        <img src="static/images/task examples/osworld-slides.png"
-             alt="Example of a task in OSWorld.">
-        <h2 class="subtitle has-text-centered" style="margin-top: 1rem;">
-          "Please set my slides upright instead of sideways." (OSWorld)
-        </h2>
-      </div>
-      <div class="item">
-        <img src="static/images/task examples/osworld-glasses.png"
-             alt="Example of a task in OSWorld.">
-        <h2 class="subtitle has-text-centered" style="margin-top: 1rem;">
-          "My glasses are broken, and I'm having trouble seeing small things clearly. Could you help me enlarge the text on my screen so it's easier to read?" (OSWorld)
-        </h2>
-      </div>
-    </div>
-  </div>
-</section>
-
+<!-- Experiments -->
 <section class="section hero">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">Agreement Bias</h2>
+        <h2 class="title is-3">Experiments</h2>
         <div class="content has-text-justified">
-          <p>
-            We identify a critical limitation that undermines the reliability of MLLMs as verifiers: a strong tendency to favor information presented in their context window, a phenomenon we call agreement bias.
-            MLLM verifiers often validate flawed agent behavior and even produce chains-of-thought (CoT) to rationalize their incorrect judgments.
-            This bias is pervasive across model families, and persists despite the use of established test-time scaling techniques, training for reasoning, and instructions with task-specific evaluation criteria.
+        <!-- ===========================================  -->
+        <!-- LINK: Evaluating MLLM Verifiers (collapsible) -->
+        <!-- ===========================================  -->
+          <h3 class="title is-4" style="margin-top: 1rem; margin-bottom: 0.75rem;">Evaluating MLLM Verifiers</h3>
+
+          <p style="margin-bottom: 1rem;">
+            We outline several key factors relevant for a reliable assessment of verifiers: (i) diversity of environments and agents, (ii) quality and balance of trajectories and annotations, (iii) strong, comprehensive verifier implementations, and (iv) the choice of verifier applications and quantitative metrics for their evaluation.
+            
+            <br>
+            <br>
+            For works proposing verifiers (or artifacts derived from them), we highlight the importance to:
+            <br>
+            <ul>
+              <li>
+                Report fine-grained metrics that capture a verifier's ability to both reinforce desired behavior and, <b>crucially</b>, to identify failures, as the latter is essential to provide feedback when agent behavior is flawed and requires correction;
+              </li>
+              <li>
+                Evaluate a verifier not only by its performance to judge post-hoc trajectories (most common) but also by its impact on downstream applications, as leniency-strictness tradeoffs inherent to verification renders offline metrics insufficient to characterize a verifier's practical utility.
+              </li>
+            </ul>
+          
+        </p>
+
+          <details class="expander">
+            <summary>Environment Diversity</summary>
+            <div class="inner">
+              <p>
+                Diversity of environments and agents is key for generalizable findings.
+                The benchmarks evaluated span a diverse set of tasks in web navigation, computer use, and long-horizon robotic manipulation that require nuanced verification and multimodal reasoning:
+              </p>
+              <ul>
+                <li>
+                  <b>VisualWebArena (VWA)</b>: a web-browser environment with 910 tasks, many combining text and image instructions
+                  (e.g., "Buy this product" + image).
+                </li>
+                <li>
+                  <b>OSWorld</b>: a computer-use benchmark with 369 tasks involving widely used desktop applications in single- and multi-app workflows.
+                </li>
+                <li>
+                  <b>robomimic</b>: long-horizon robot manipulation; we focus on <b>tool hang</b> (most challenging),
+                  consisting of (1) inserting an L-shaped pencil into a base and (2) hanging a wrench on it.
+                </li>
+              </ul>
+              <h3 class="title is-4 has-text-centered" style="margin: 3rem auto 0;">
+                Task Examples
+              </h3>
+              <div id="results-carousel" class="carousel results-carousel">
+                <div class="item">
+                  <img src="static/images/task examples/vwa-classifieds.png"
+                       alt="Example of a task in VisualWebArena.">
+                  <h2 class="subtitle has-text-centered" style="margin-top: 1rem;">
+                    "Show me the most expensive collectible historical USA coin that is under $2000." (VisualWebArena)
+                  </h2>
+                </div>
+                <div class="item">
+                  <img src="static/images/task examples/vwa-shopping.png"
+                       alt="Example of a task in VisualWebArena.">
+                  <h2 class="subtitle has-text-centered" style="margin-top: 1rem;">
+                    "I really like these shoes, but I am not satisfied with the color. Could you find me an item on this page for these shoes with a darker shade or color?" (VisualWebArena)
+                  </h2>
+                </div>
+                <div class="item">
+                  <img src="static/images/task examples/osworld-slides.png"
+                       alt="Example of a task in OSWorld.">
+                  <h2 class="subtitle has-text-centered" style="margin-top: 1rem;">
+                    "Please set my slides upright instead of sideways." (OSWorld)
+                  </h2>
+                </div>
+                <div class="item">
+                  <img src="static/images/task examples/osworld-glasses.png"
+                       alt="Example of a task in OSWorld.">
+                  <h2 class="subtitle has-text-centered" style="margin-top: 1rem;">
+                    "My glasses are broken, and I'm having trouble seeing small things clearly. Could you help me enlarge the text on my screen so it's easier to read?" (OSWorld)
+                  </h2>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details class="expander">
+            <summary>Agents & Trajectory Quality</summary>
+            <div class="inner">
+              <p>
+                Weak agents and buggy environments can produce trajectories that are trivial to verify and may artificially
+                inflate verifier performance (e.g., long action loops, "page not found" errors). We fix several issues with the VisualWebArena environment and incorporate diverse agents to improve generalization.
+              </p>
+              <ul>
+                <li>
+                  <b>VWA</b>: We build a strong ReAct agent that produces a balanced distribution of failures and successes.
+                </li>
+                <li><b>OSWorld</b>: We utilize the GUI-Specialist (UI-TARS-1.5), the best performing agent in the benchmark at the time of writing.</li>
+                <li><b>robomimic</b>: We train a diffusion policy on expert demonstrations.</li>
+              </ul>
+            </div>
+          </details>
+
+          <details class="expander">
+            <summary>Trajectory Annotations</summary>
+            <div class="inner">
+              <p>
+                Similar to prior work, we rely on <b>oracle verifiers</b> included in the benchmark as scalable proxies for human judgment, since large-scale human annotation is expensive. For a reliable baseline, we made several improvements to VisualWebArena oracles and externally validated them on trajectories provided by the concurrent work AgentRewardBench, achieving near-perfect alignment to human labels.
+              </p>
+              <div class="table-container" style="margin-top: 0.75rem;">
+                <table id="tab-fixed-oracle" class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>Original</th>
+                      <th>Improved Oracle</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><b>Precision</b></td>
+                      <td>85.2</td>
+                      <td>100</td>
+                    </tr>
+                    <tr>
+                      <td><b>TPR</b></td>
+                      <td>58.2</td>
+                      <td>92</td>
+                    </tr>
+                    <tr>
+                      <td><b>TNR</b></td>
+                      <td>95.9</td>
+                      <td>100</td>
+                    </tr>
+                    <tr>
+                      <td><b>Acc</b></td>
+                      <td>85.1</td>
+                      <td>98</td>
+                    </tr>
+                  </tbody>
+                  <caption class="has-text-grey is-size-7" style="caption-side: bottom; padding-top: 0.5rem;">
+                    <b>Table:</b> Performance of oracle evaluators in AgentRewardBench-VisualWebArena.
+                  </caption>
+                </table>
+              </div>
+            </div>
+          </details>
+
+          
+          <details class="expander">
+            <summary>Verifier Implementations</summary>
+            <div class="inner">
+              <p>
+                To ensure strong and generalizable findings, we implement strong verifier baselines and explore several design choices, including: Chain-of-thought (CoT) prompting, Set-of-marks (SoM) prompting, Majority voting/self-consistency, Reasoning models, and 28+ variations to prompt/scoring templates including common interventions to mitigate biases in LLM judgements.
+                For VisualWebArena, we additionally consider human-written benchmark-specific rubrics explored in prior work and adopted by subsequent work for self-refinement, tree-search, and finetuning.
+              </p>
+            </div>
+          </details>
+
+
+          <details class="expander">
+            <summary>Choice of Verifier Applications</summary>
+            <div class="inner">
+              <p>
+                We evaluate MLLM verifiers on three representative applications:
+                <b>(i)</b> offline evaluation of trajectories,
+                <b>(ii)</b> self-refinement via Reflexion,
+                and <b>(iii)</b> online supervision.
+              </p>
+              <p>
+                These applications: (1) introduce fewer confounding factors; (2) are of direct practical interest and often serve as building blocks in larger pipelines; and (3) yield informative signals for broader applicability.
+              </p>
+            </div>
+          </details>
+
+
+          <details class="expander">
+            <summary>Quantitative metrics</summary>
+            <div class="inner">
+              <div class="box" style="margin-top: 1rem;">
+                <p style="margin-bottom: 0.75rem;">
+                  For offline verification of agent trajectories, we evaluate alignment of rewards produced by MLLM verifiers and humans/oracles through bias, distance skewness, and true positive and true negative rates:
+                </p>
+                <div style="overflow-x:auto;">
+                  \[
+                    \text{bias} = \frac{1}{n}\sum_i \mathbb{E}[d_i];
+                    \qquad
+                    d\text{Skew} = 1 - \frac{\sum_{i,j}\lVert d_i - d_j\rVert}{\sum_{i,j}\lVert d_i + d_j\rVert};
+                    \qquad
+                    \text{T?R}(c) = \frac{\sum_i \mathbf{1}(\hat{r}_i=c \wedge r_i^*=c)}{\sum_i \mathbf{1}(r_i^*=c)}, \quad c\in\{0,1\}
+                  \]
+                </div>
+                <p style="margin-top: 0.75rem; margin-bottom: 0.75rem;">
+                  where \(\hat{r}_i\) is the MLLM verifier reward, \(r_i^*\) the human/oracle reward, and \(d_i = \hat{r}_i - r_i^*\).
+                </p>
+                <p style="margin-bottom: 0.75rem;">
+                  To facilitate comparisons, we also include accuracy as an <i>auxiliary</i> metric that summarizes the tradeoff between TPR and TNR:
+                  \(\text{ACC} = (1-\text{SR})\cdot \text{TNR} + \text{SR}\cdot \text{TPR}\),
+                  where \(\text{SR}\) is the base agent success rate.
+                </p>
+                <p style="margin-bottom: 0;">
+                  Due to the intrinsic leniency-strictness tradeoff in verification, we also evaluate the impact of a verifier on <b>downstream applications</b> by measuring the <b>task completion rate (SR) of agents with and without verifier intervention</b>.
+                </p>
+              </div>
+              <p style="margin-bottom: 0.75rem;">
+                <b>Key Observations:</b>
+              </p>
+              <ul style="margin-top: 0; margin-bottom: 0.75rem;">
+                <li>
+                  <b>bias</b> and <b>dSkew</b>: summary statistics reflecting the distribution of MLLM responses. Positive values indicate MLLM rewards systematically higher than humans/oracles; values near zero indicate closer alignment.
+                </li>
+                <li>
+                    <b>TNR</b>: measures how often MLLMs identify failures among the subset of trajectories marked as failures. Provides an empirical estimate of the probability of classifying a trajectory as flawed when it truly is. A low \(TNR = 1-\text{FalsePositiveRate}\) implies a high number of false positives. (everything analogous for <b>TPR</b>)
+                </li>
+                <li>
+                    Statistics like TPR and TNR directly relate to the core function of verifiers: providing feedback to improve agent performance. 
+                    Low values indicate not only misalignment but also risks for downstream applications—especially a low probability of flagging failures (low TNR).
+                </li>
+              </ul>
+            </div>
+          </details>
+
+          <details class="expander" open>
+            <summary>External Validation: Results on AgentRewardBench</summary>
+            <div class="inner">
+          <p style="margin-bottom: 0.75rem;">
+            As a validation of our experimental design, we evaluate our refined oracles and baseline verifier on external human-labeled trajectories provided by the concurrent work <a href="https://agent-reward-bench.github.io/" target="_blank">AgentRewardBench</a> (AGRB) for the benchmarks we consider (VisualWebArena). Key observations:
+            <!-- bullet points -->
+            <ul>
+                <li>
+                  Our revised oracles achieve near-perfect alignment to human labels.
+                </li>
+              <li>
+                Our <b>baseline</b> verifier already achieves a new <b>state-of-the-art</b> on the benchmark, reinforcing the strength of our findings on agreement bias and SGV's relative gains.
+              </li>
+              <li>
+                SGV further improves performance, outperforming even the original oracles included in the VisualWebArena benchmark.
+              </li>
+              <li>
+                This high performance is partly explained by the use of weaker agents and environment bugs in AGRB trajectories, validating our efforts to develop stronger agents and improve the environment.
+              </li>
+            </ul>
+
           </p>
-          <p>
-            We observe that agreement bias occurs despite models having relatively strong, and human-aligned priors on desired characteristics for agent behavior.
-            This suggests a bottleneck in retrieval; while models possess the relevant knowledge for a downstream task, the way it is stored can hinder retrieval depending on the form the information is presented.
+          <div id="table-leaderboard"></div>
+          <noscript>
+            <div class="content">
+              <p><strong>Leaderboard Table</strong> requires JavaScript to load. Please enable JavaScript to view it.</p>
+            </div>
+          </noscript>
+
+          </div>
+          </details>
+
+          <hr style="margin: 2rem 0;">
+          
+
+
+
+
+
+
+
+          <!-- ===========================================  -->
+          <!-- LINK: Offline Evaluation -->
+          <!-- ===========================================  -->
+          
+          
+          <h3 class="title is-4" style="margin-top: 2rem; margin-bottom: 1rem;">Offline Verification of Digital Agent Trajectories</h3>
+
+            MLLMs display a strong tendency to <b>over-validate</b> flawed behavior, manifested as (i) responses tilted toward favorable evaluations (positive bias/skewness),
+            (ii) a high number of false positives (1-TNR), and (iii) a low probability of flagging failures (TNR as low as 50%).  This pattern is pervasive across models and persists even when verifiers and agents are built from models of different
+            families, sizes, and methods. It persists for trajectories produced by both weak and strong agents (e.g., more severe in VisualWebArena vs OSWorld), and is stronger as the gap between agents and verifiers increases.
+
           </p>
+
+          <div id="table1"></div>
+          <noscript>
+            <div class="content">
+              <p><strong>Table 1</strong> requires JavaScript to load. Please enable JavaScript to view it.</p>
+            </div>
+          </noscript>
+
+          <p style="margin-top: 1.25rem; margin-bottom: 0.75rem;">
+            Agreement bias is resilient to estabilished test-time scaling techniques such as CoT, Set-of-Marks (SoM), and autonomously generated reasoning steps (thinking).
+          </p>
+          <div id="table2"></div>
+          <noscript>
+            <div class="content">
+              <p><strong>Table 2</strong> requires JavaScript to load. Please enable JavaScript to view it.</p>
+            </div>
+          </noscript>
+
+          <div style="height: 1.25rem;"></div>
+
+          <h4 class="title is-5" style="margin-top: 0.5rem; margin-bottom: 0.5rem;">Agreement bias and MLLM output distributions</h4>
+          <p style="margin-bottom: 0.75rem;">
+            Agreement bias manifests as a skew in MLLM output distributions toward favorable labels. This pattern is consistent across prompt/scoring templates and is largely unaffected by interventions to mitigate biases in LLM judgements <a href="https://arxiv.org/abs/2502.06655" target="_blank">[1]</a>
+            <a href="https://llm-judge-bias.github.io/" target="_blank">[2]</a> and grounding via web-search tools <a href="https://openreview.net/forum?id=Sx038qxjek" target="_blank">[3]</a>.
+            
+          </p>
+
+          <!-- Distribution Figure -->
+          <div id="fig-distribution"></div>
+          <noscript>
+            <div class="content">
+              <p><strong>Distribution Figure</strong> requires JavaScript to load. Please enable JavaScript to view it.</p>
+            </div>
+          </noscript>
+
+          <p style="margin-top: 1rem; margin-bottom: 0.75rem;">
+            Critically, the probability of sampling a correct verification from the model's output distribution on failure cases can be close to chance. This explain the ineffectiveness of methods such as majority voting/self-consistency and indicates an imbalance to be accounted for in test-time and training methods that rely on sampling (see paper for experiments on the potential for such approaches).
+          </p>
+
+          <div id="table3"></div>
+          <noscript>
+            <div class="content">
+              <p><strong>Table 3</strong> requires JavaScript to load. Please enable JavaScript to view it.</p>
+            </div>
+          </noscript>
+
+          <h4 class="title is-5" style="margin-top: 1.25rem; margin-bottom: 0.5rem;">
+            Effectiveness of SGV and Leniency-Strictness Trade-offs in Verification
+          </h4>
+          
+          <p style="margin-bottom: 0.75rem;">
+            By producing more balanced and human-aligned evaluations, SGV improves verification across all models and benchmarks.
+            Remarkably, (i) SGV boosts performance of large reasoning models, and (ii) enables non-reasoning models to match their reasoning counterparts.
+          </p>
+          
+          <p style="margin-bottom: 0.75rem;">
+            SGV can lead to stricter verification (lower TPR), a pattern partly explained by disagreements with permissive oracles on simplistic tasks.
+            For example, to "<a href="#trajectory-red-boat">Find the hours on the engine of the most recently listed red boat</a>," clicking on the "Boats" category and returning the first result is validated by oracles and the baseline verifiers but is rejected by SGV, which prompts the agent to search for and verify requested attributes, and ultimately completes the task via a more robust approach.
+          <br>
+          <br>
+
+            This illustrates a fundamental trade-off in verification: leniency can encourage brittle behavior, while strictness may reject valid solutions but enable more robust ones.
+            As seen here, offline metrics provide only a partial view of this balance, highlighting the importance of evaluating verifiers in downstream applications to more clearly characterize their practical usefulness.
+          </p>
+
+
+          <!-- LINK: Downstream Applications -->
+          <h3 class="title is-4" style="margin-top: 2rem; margin-bottom: 1rem;">Downstream Applications</h3>
+
+          <!-- Reflexion Figure -->
+          The adverse effects of agreement bias extend beyond incorrect evaluation of agent performance. The tendency to over-validate flawed behavior means that MLLM verifiers are unable to provide corrective feedback exactly when most needed: when agent behavior is flawed and requires correction. 
+
+          <br>
+          <br>
+          In self-refinement, agreement bias hinder the agent's ability to self-improve, in contrast to SGV which leads to consistent gains across refinement iterations.
+
+          <div id="fig-reflexion"></div>
+          <noscript>
+            <div class="content">
+              <p><strong>Figure</strong> requires JavaScript to load. Please enable JavaScript to view it.</p>
+            </div>
+          </noscript>
+
+          <div style="height: 1.25rem;"></div>
+          Similarly, agreement bias reduces the effectiveness of MLLM-derived rewards in online methods. In online supervision and diffusion policy steering, the (strong) MLLM verifier fails to deliver meaningful improvements. In contrast, SGV leads to substantial gains, setting a new state-of-the-art in VisualWebArena while utilizing substantially less tokens, no access to previous trajectories, and enabling backtracking via native web actions.
+
+          <br>
+          <br>
+
+          <!-- Table 4: Online Supervision -->
+          <div id="table4"></div>
+          <noscript>
+            <div class="content">
+              <p><strong>Table 4</strong> requires JavaScript to load. Please enable JavaScript to view it.</p>
+            </div>
+          </noscript>
+          
+         
+          <div style="height: 1rem;"></div>
+
+          <!-- Table 5: robomimic -->
+          <div id="table5"></div>
+          <noscript>
+            <div class="content">
+              <p><strong>Table 5</strong> requires JavaScript to load. Please enable JavaScript to view it.</p>
+            </div>
+          </noscript>
+          <br>
+          <br>
+          Notably, these results occur for a <b>strong</b> baseline MLLM verifier with over 91% recall and state-of-the-art performance (precision) on AgentRewardBench, reinforcing (i) the importance of fine-grained metrics (especially, TNR) and (ii) the relevance of downstream application metrics.
+   
+
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section hero is-light">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Self-Grounded Verification</h2>
-        <div class="content has-text-justified">
-          <p>
-            To address agreement bias, we introduce Self-Grounded Verification (SGV).
-            SGV operates in two steps: first, the model is elicited to retrieve a broad set of priors associated with successful task completion, conditioned only on minimal context to frame the task without access to the data under evaluation.
-            In the second step, conditioned on its self-generated priors, the model then evaluates a candidate trajectory.
-            SGV leads to more balanced and accurate verification across environments and policies, while introducing minimal token overhead and being easy to integrate into pipelines relying on MLLM verifiers.
-          </p>
-          <p>
-            Intuitively, by modulating unconditional and conditional generation, SGV harnesses MLLMs' own sampling mechanisms to enable more effective use of their world knowledge, alignment, and reasoning capabilities.
-            By conditioning only on essential information in the first step, the model is induced to fully explore its high-dimensional probability distribution to retrieve information relevant to the task at hand and independent of the data under evaluation.
-            In the second step, the model performs more focused generation, reasoning about the trajectory while grounded in its own trajectory-independent beliefs about what success looks like — effectively sampling from a conditional distribution induced by its own priors.
-            We hypothesize that MLLMs, given their vast world knowledge and generalization abilities, can generate priors that are well-aligned with human notions of success, and that by decoupling inference in this manner, these priors can serve as an impartial baseline for grounding the verification.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- Downstream Applications -->
+
+<!-- Additional Results -->
 
 <section class="section hero">
   <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
+    <div class="columns is-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">Results</h2>
+        <h2 class="title is-3 has-text-centered">Additional Results</h2>
+
         <div class="content has-text-justified">
           <p>
-            To demonstrate SGV's effectiveness and versatility, we evaluate its performance in two key applications of MLLM verifiers: automatic evaluation of agent trajectories, and online supervision to guide agents toward task completion.
+            We invite readers to explore our paper for additional results and discussions:
           </p>
 
-          <!-- Table 1 -->
-          <div style="margin: 2rem 0;">
-            <div style="font-weight: bold; margin-bottom: 0.5rem;">
-              Performance of MLLM verifiers on evaluation of web agent trajectories. (a) Agreement bias: models struggle to identify flawed behavior. (b) SGV improves performance across models.
+          <details class="expander">
+            <summary>Additional Results and Discussions</summary>
+            <div class="inner">
+              <ul>
+                <li>
+                  <b>Trajectory length & verification difficulty</b>: Verification is generally <i>stronger</i> on longer trajectories (more opportunities for clearly observable failures). Harder-to-verify trajectories (e.g., produced by stronger agents) degrade verification performance, largely due to increased agreement bias. SGV improves verification in all such cases.
+                </li>
+                <li>
+                    <b>Qualitative analysis</b> discussing and categorizing factors affecting agent success rates in downstream applications.
+                </li>
+                <li>
+                  <b>Periodic vs outcome-based verification</b>: Largely same conclusions (MLLM-based verification fails to deliver meaningful improvements, in contrast to SGV) but: Periodic verification can be more effective in environments with destructive or irreversible actions.
+                </li>
+                <li>
+                  <b>Ablations to SGV</b>: SGV outperforms grounding via web-search tools; is robust to moderate noise in first-step generations; weaker models can produce effective priors for stronger or reasoning models; multiple priors from diverse models can further improve performance.
+                </li>
+                <li>
+                  <b>VisualWebArena improvements</b>: Additional details on action-execution fixes and runtime speedups.
+                </li>
+                <li>
+                  <b>Intervening at the MLLM output distribution</b>: Opportunities and limitations of methods that explicitly account for skewed MLLM distributions associated with agreement bias.
+                </li>
+              </ul>
             </div>
-            <div class="scrollable-table">
-              <table class="table is-striped is-hoverable">
-                <thead>
-                  <tr>
-                    <th rowspan="2" style="text-align: left;">Model</th>
-                    <th colspan="3">(a) CoT-Based Verification</th>
-                    <th colspan="3">(b) Self-Grounded Verification</th>
-                    <th rowspan="2">∆ Acc.</th>
-                  </tr>
-                  <tr>
-                    <th>TPR (%)</th>
-                    <th>TNR (%)</th>
-                    <th>Acc. (%)</th>
-                    <th>TPR (%)</th>
-                    <th>TNR (%)</th>
-                    <th>Acc. (%)</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td style="text-align: left;">GPT-4.1</td>
-                    <td>90</td>
-                    <td>50</td>
-                    <td>65</td>
-                    <td>80</td>
-                    <td>65</td>
-                    <td>72</td>
-                    <td style="color: #16a34a; font-weight: bold;">+7</td>
-                  </tr>
-                  <tr>
-                    <td style="text-align: left;">GPT-4o</td>
-                    <td>85</td>
-                    <td>54</td>
-                    <td>62</td>
-                    <td>74</td>
-                    <td>73</td>
-                    <td>73</td>
-                    <td style="color: #16a34a; font-weight: bold;">+11</td>
-                  </tr>
-                  <tr>
-                    <td style="text-align: left;">Gemini 2.5</td>
-                    <td>89</td>
-                    <td>54</td>
-                    <td>69</td>
-                    <td>75</td>
-                    <td>77</td>
-                    <td>76</td>
-                    <td style="color: #16a34a; font-weight: bold;">+8</td>
-                  </tr>
-                  <tr>
-                    <td style="text-align: left;">Qwen2.5-VL-72B</td>
-                    <td>82</td>
-                    <td>54</td>
-                    <td>62</td>
-                    <td>74</td>
-                    <td>68</td>
-                    <td>70</td>
-                    <td style="color: #16a34a; font-weight: bold;">+8</td>
-                  </tr>
-                  <tr>
-                    <td style="text-align: left;">Llama 4 Maverick</td>
-                    <td>82</td>
-                    <td>54</td>
-                    <td>62</td>
-                    <td>74</td>
-                    <td>64</td>
-                    <td>67</td>
-                    <td style="color: #16a34a; font-weight: bold;">+6</td>
-                  </tr>
-                  <tr>
-                    <td style="text-align: left;">OpenAI o1 (high)*</td>
-                    <td>77</td>
-                    <td>66</td>
-                    <td>68</td>
-                    <td>74</td>
-                    <td>74</td>
-                    <td>74</td>
-                    <td style="color: #16a34a; font-weight: bold;">+6</td>
-                  </tr>
-                  <tr>
-                    <td style="text-align: left;">Gemini 2.5 (T-H)†</td>
-                    <td>84</td>
-                    <td>65</td>
-                    <td>73</td>
-                    <td>73</td>
-                    <td>83</td>
-                    <td>79</td>
-                    <td style="color: #16a34a; font-weight: bold;">+6</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="content is-small">
-              <p>* VisualWebArena shopping domain only. † Thinking enabled with max thinking budget (24,576 tokens).</p>
-            </div>
-          </div>
-
-          <p>
-            On over 1,200 agent trajectories from VisualWebArena and OSWorld, SGV improves verification performance of several MLLMs and large reasoning models (LRMs), leading to gains of up to 17 percentage points (pp) in accuracy and up to 20 pp in true-negative identification, outperforming baselines leveraging established test-time scaling techniques and instructions with access to privileged information.
-          </p>
-
-          <!-- Table 3 -->
-          <div style="margin: 2rem 0;">
-            <div style="font-weight: bold; margin-bottom: 0.5rem;">
-              Task success rate (SR) and token usage across VisualWebArena domains and OSWorld. Token usage (for VisualWebArena) is relative to the ReAct agent with no verifier.
-            </div>
-            <div class="scrollable-table">
-              <table class="table is-striped is-hoverable">
-                <thead>
-                  <tr>
-                    <th rowspan="2" style="text-align: left;">Method</th>
-                    <th colspan="2">All VWA</th>
-                    <th colspan="2">Classifieds</th>
-                    <th colspan="2">Reddit</th>
-                    <th colspan="2">Shopping</th>
-                    <th>OSWorld</th>
-                  </tr>
-                  <tr>
-                    <th>SR</th>
-                    <th>Tokens</th>
-                    <th>SR</th>
-                    <th>Tokens</th>
-                    <th>SR</th>
-                    <th>Tokens</th>
-                    <th>SR</th>
-                    <th>Tokens</th>
-                    <th>SR</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td style="text-align: left;"><a href="https://arxiv.org/abs/2407.01476" target="_blank">Search Agent</a>*</td>
-                    <td>29</td>
-                    <td>4.9x</td>
-                    <td>34</td>
-                    <td>4.2x</td>
-                    <td>22</td>
-                    <td>5.4x</td>
-                    <td>30</td>
-                    <td>5.1x</td>
-                    <td>–</td>
-                  </tr>
-                  <tr>
-                    <td style="text-align: left;"><a href="https://arxiv.org/abs/2410.02052" target="_blank">R-MCTS</a>*</td>
-                    <td>34</td>
-                    <td>9.3x</td>
-                    <td>41</td>
-                    <td>7.4x</td>
-                    <td>29</td>
-                    <td>9.7x</td>
-                    <td>32</td>
-                    <td>10.1x</td>
-                    <td>–</td>
-                  </tr>
-                  <tr>
-                    <td style="text-align: left;">Base Agent</td>
-                    <td>46</td>
-                    <td>1x</td>
-                    <td>49</td>
-                    <td>1x</td>
-                    <td>29</td>
-                    <td>1x</td>
-                    <td>52</td>
-                    <td>1x</td>
-                    <td>21.4</td>
-                  </tr>
-                  <tr>
-                    <td style="text-align: left;">+ Verifier, no SGV</td>
-                    <td>46</td>
-                    <td>1.5x</td>
-                    <td>48</td>
-                    <td>1.5x</td>
-                    <td>29</td>
-                    <td>1x</td>
-                    <td>53</td>
-                    <td>1x</td>
-                    <td>–</td>
-                  </tr>
-                  <tr style="background-color: #f0f9ff;">
-                    <td style="text-align: left;"><strong>+ Verifier, SGV</strong></td>
-                    <td><strong>50</strong></td>
-                    <td><strong>1.9x</strong></td>
-                    <td><strong>52</strong></td>
-                    <td><strong>1.9x</strong></td>
-                    <td><strong>33</strong></td>
-                    <td><strong>1.7x</strong></td>
-                    <td><strong>57</strong></td>
-                    <td><strong>1.9x</strong></td>
-                    <td><strong>24.5</strong></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="content is-small">
-              <p>*Results from prior work.</p>
-            </div>
-          </div>
-
-          <p>
-            Paired with SGV, our ReAct agent achieves a 5 pp gain (≈ 10% relative) on VisualWebArena, establishing <strong>a new state of the art</strong> by outperforming the previous best by 16 pp (≈ 48% relative), with minimal increase in token usage.
-            Similarly, our verifiers guide the GUI-specialist <a href="https://seed-tars.com/1.5" target="_blank">UI-TARS-1.5</a> to improve by 3 pp (≈ 15% relative) in OSWorld, and a diffusion policy to outperform oracle supervision by 8 pp (≈ 33% relative) on robomimic's tool-hang task.
-          </p>
+          </details>
         </div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- Example Trajectories -->
 <section class="section hero is-light">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
@@ -598,8 +829,8 @@
         <p class="has-text-justified" style="margin-top: 4rem;">
           2. Example of the verifier guiding the agent toward a more robust strategy to complete the task:
         </p>
-        <h3 class="subtitle is-5 has-text-centered" style="margin: 1.5rem auto 0;">
-          "How many hours are on the engine of the most recently listed red boat?"
+        <h3 id="trajectory-red-boat" class="subtitle is-5 has-text-centered" style="margin: 1.5rem auto 0;">
+          "<a href="#trajectory-red-boat">How many hours are on the engine of the most recently listed red boat?</a>"
           <br>
           (VisualWebArena)
         </h3>

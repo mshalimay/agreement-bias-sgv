@@ -1,0 +1,74 @@
+<!-- Table 3: Distribution & agreement -->
+<div style="margin: 0;">
+  <div class="columns is-variable is-4">
+    <div class="column is-5">
+      <div class="scrollable-table">
+        <table class="table is-striped is-hoverable is-narrow is-fullwidth">
+          <caption class="has-text-grey is-size-7" style="caption-side: bottom; padding-top: 0.5rem;">
+            Average distribution of MLLM evaluations across 28 prompt and scoring templates.
+          </caption>
+          <thead>
+            <tr>
+              <th></th>
+              <th>S</th>
+              <th>PS</th>
+              <th>F/PF</th>
+              <th>U</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td style="text-align:left;">Oracle</td><td>57</td><td>—</td><td>43</td><td>—</td></tr>
+            <tr><td style="text-align:left;">No SGV (binary)</td><td>73</td><td>—</td><td>25</td><td>2</td></tr>
+            <tr><td style="text-align:left;">No SGV</td><td>70</td><td>6</td><td>23</td><td>1</td></tr>
+            <tr><td style="text-align:left;">SGV</td><td>56</td><td>4</td><td>39</td><td>1</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="column is-7">
+      <div class="scrollable-table">
+        <table class="table is-striped is-hoverable is-narrow is-fullwidth">
+          <caption class="has-text-grey is-size-7" style="caption-side: bottom; padding-top: 0.5rem;">
+            MLLM–oracle agreement rates across multiple samples stratified by all trajectories (All), failed trajectories (F), and successful trajectories (S).
+          </caption>
+          <thead>
+            <tr>
+                <th></th>
+                <th colspan="3">VisualWebArena</th>
+                <th></th>
+              <th colspan="3">OSWorld</th>
+            </tr>
+            <tr>
+              <th></th><th>All</th><th>F</th><th>S</th>
+              <th></th>
+              <th>All</th><th>F</th><th>S</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="text-align:left;">No SGV</td><td>65</td><td><span style="color:#d0021b; font-weight:700;">48</span></td><td>91</td>
+              <td></td>
+              <td>71</td><td><span style="color:#d0021b; font-weight:700;">56</span></td><td>93</td>
+            </tr>
+            <tr>
+              <td style="text-align:left;">No SGV (T)</td><td>68</td><td>55</td><td>90</td>
+              <td></td>
+              <td>79</td><td>65</td><td>93</td>
+            </tr>
+            <tr>
+              <td style="text-align:left;">SGV</td><td>75</td><td>70</td><td>86</td>
+              <td></td>
+              <td>85</td><td>77</td><td>89</td>
+            </tr>
+            <tr>
+              <td style="text-align:left;"><b># Samples</b></td><td colspan="3">7,280</td>
+              <td></td>
+              <td colspan="3">2,784</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
