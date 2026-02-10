@@ -731,22 +731,22 @@
             <div class="inner">
               <ul>
                 <li>
-                  <b>Trajectory length & verification difficulty</b>: Verification is generally <i>stronger</i> on longer trajectories (more opportunities for clearly observable failures). Harder-to-verify trajectories (e.g., produced by stronger agents) degrade verification performance, largely due to increased agreement bias. SGV improves verification in all such cases.
+                  <b>Trajectory length & agent strength</b>: Verification is <i>stronger on longer trajectories</i>—at the current state of agents & benchmarks, longer highly correlates with erratic behavior that is easier to spot. Verification is less accurate on "harder-to-verify" trajectories produced by stronger agents <b>due to an increase in agreement bias</b>. SGV improves verification in all such cases.
                 </li>
                 <li>
                     <b>Qualitative analysis</b> discussing and categorizing factors affecting agent success rates in downstream applications.
                 </li>
                 <li>
-                  <b>Periodic vs outcome-based verification</b>: Largely same conclusions (MLLM-based verification fails to deliver meaningful improvements, in contrast to SGV) but: Periodic verification can be more effective in environments with destructive or irreversible actions.
+                  <b>Periodic vs outcome-based verification</b>: Largely same conclusions (MLLM-based verification fails to deliver meaningful improvements, in contrast to SGV) + Benefits of periodic verification in environments with destructive or irreversible actions.
                 </li>
                 <li>
                   <b>Ablations to SGV</b>: SGV outperforms grounding via web-search tools; is robust to moderate noise in first-step generations; weaker models can produce effective priors for stronger or reasoning models; multiple priors from diverse models can further improve performance.
                 </li>
                 <li>
-                  <b>VisualWebArena improvements</b>: Additional details on action-execution fixes and runtime speedups.
+                  <b>VisualWebArena updates</b>: Additional details on action-execution and oracle fixes, runtime speedups, VisualWebArena-Lite (1/3 subset with similar evaluation fidelity).
                 </li>
                 <li>
-                  <b>Intervening at the MLLM output distribution</b>: Opportunities and limitations of methods that explicitly account for skewed MLLM distributions associated with agreement bias.
+                  <b>Intervening at the MLLM output distribution</b>: Opportunities for alternative sampling/decoding methods that account for the skew in MLLM distributions associated with agreement bias.
                 </li>
               </ul>
             </div>
