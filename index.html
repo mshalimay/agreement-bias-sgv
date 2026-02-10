@@ -224,7 +224,7 @@
             </p>
 
             <!-- Applications of Verifiers -->
-            <h3 class="title is-4" style="margin-top: 1.75rem; margin-bottom: 0.75rem;">Applications of Verifiers</h3>
+            <h3 id="applications-of-verifiers" class="title is-4" style="margin-top: 1.75rem; margin-bottom: 0.75rem;">Applications of Verifiers</h3>
             <p>
               To characterize the potential benefits and risks of MLLM verifiers, we unify the view of existing methods by how they use \(r\) and are therefore affected by its quality, categorizing them into <b>offline</b> and <b>online</b> settings.
             </p>
@@ -330,7 +330,7 @@
         <!-- ===========================================  -->
         <!-- LINK: Evaluating MLLM Verifiers (collapsible) -->
         <!-- ===========================================  -->
-          <h3 class="title is-4" style="margin-top: 1rem; margin-bottom: 0.75rem;">Evaluating MLLM Verifiers</h3>
+          <h3 id="evaluating-mllm-verifiers" class="title is-4" style="margin-top: 1rem; margin-bottom: 0.75rem;">Evaluating MLLM Verifiers</h3>
 
           <p style="margin-bottom: 1rem;">
             We outline several key factors relevant for a reliable assessment of verifiers: (i) diversity of environments and agents, (ii) quality and balance of trajectories and annotations, (iii) strong, comprehensive verifier implementations, and (iv) the choice of verifier applications and quantitative metrics for their evaluation.
@@ -543,7 +543,7 @@
           </details>
 
           <details class="expander" open>
-            <summary>External Validation: Results on AgentRewardBench</summary>
+            <summary>External Validation: state-of-the-art results on AgentRewardBench</summary>
             <div class="inner">
           <p style="margin-bottom: 0.75rem;">
             As a validation of our experimental design, we evaluate our refined oracles and baseline verifier on external human-labeled trajectories provided by the concurrent work <a href="https://agent-reward-bench.github.io/" target="_blank">AgentRewardBench</a> (AGRB) for the benchmarks we consider (VisualWebArena). Key observations:
@@ -665,11 +665,13 @@
           <h3 class="title is-4" style="margin-top: 2rem; margin-bottom: 1rem;">Downstream Applications</h3>
 
           <!-- Reflexion Figure -->
-          The adverse effects of agreement bias extend beyond incorrect evaluation of agent performance. The tendency to over-validate flawed behavior means that MLLM verifiers are unable to provide corrective feedback exactly when most needed: when agent behavior is flawed and requires correction. 
+          The adverse effects of agreement bias can extend beyond imprecise evaluation of agent performance.
+          Agreement bias means feedback is ineffective exactly when most needed—when agent behavior is flawed and requires correction—posing risks to        
+          <a href="#applications-of-verifiers">several methods</a> that rely on labels/scores/NL feedback from MLLMs acting as verifiers.
 
           <br>
           <br>
-          In self-refinement, agreement bias hinders the agent's ability to self-improve, in contrast to SGV which leads to consistent gains across refinement iterations.
+          In <b>self-improvement</b>, agreement bias prevents the (strong) MLLM verifier from delivering feedback about suboptimal behavior, hindering the agent's ability to learn from mistakes. In contrast, the SGV-based verifier promotes consistent gains across refinement iterations.
           
           <div id="fig-reflexion"></div>
           <noscript>
@@ -679,7 +681,7 @@
           </noscript>
 
           <div style="height: 1.25rem;"></div>
-          Similarly, agreement bias reduces the effectiveness of MLLM-derived rewards in online methods. In online supervision and diffusion policy steering, the (strong) MLLM verifier fails to deliver meaningful improvements. In contrast, SGV leads to substantial gains, setting a new state-of-the-art in VisualWebArena while utilizing substantially fewer tokens, no access to previous trajectories, and enabling backtracking via native web actions.
+          Similarly, agreement bias reduces the effectiveness of MLLM-derived rewards in online methods. In online supervision and diffusion policy steering, the (strong) MLLM verifier fails to deliver meaningful improvements. In contrast, SGV leads to substantial gains. Notably, our agents achieve a <b>new state-of-the-art in VisualWebArena</b> while utilizing substantially fewer tokens, no access to previous trajectories, and enabling backtracking via native web actions.
 
           <br>
           <br>
@@ -704,9 +706,7 @@
           </noscript>
           <br>
           <br>
-          Notably, these results occur for a <b>strong</b> baseline MLLM verifier with over 91% recall and state-of-the-art performance (precision) on AgentRewardBench, reinforcing (i) the importance of fine-grained metrics (especially, TNR) and (ii) the relevance of downstream application metrics.
-   
-
+          Finally, we reiterate that these results occur for a <b>baseline MLLM verifier that is strong</b> per conventional metrics: high aggregate metrics (recall, accuracy, precision) and state-of-the-art performance on AgentRewardBench. This reinforces factors discussed <a href="#evaluating-mllm-verifiers"> in our experimental design</a>, particularly the importance of: (i) fine-grained metrics (especially TNR), (ii) downstream application metrics, and (iii) control of confounders that can distort verifier evaluation (e.g., environment bugs and agent strength). 
         </div>
       </div>
     </div>
