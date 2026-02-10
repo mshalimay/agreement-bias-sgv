@@ -665,10 +665,8 @@
           <h3 class="title is-4" style="margin-top: 2rem; margin-bottom: 1rem;">Downstream Applications</h3>
 
           <!-- Reflexion Figure -->
-          The adverse effects of agreement bias can extend beyond imprecise evaluation of agent performance.
-          Agreement bias means feedback is ineffective exactly when most needed—when agent behavior is flawed and requires correction—posing risks to        
-          <a href="#applications-of-verifiers">several methods</a> that rely on labels/scores/NL feedback from MLLMs acting as verifiers.
-
+          The <b>adverse effects of agreement bias extend beyond imprecise evaluation of agent performance.</b>
+          <a href="#applications-of-verifiers">Several methods</a> rely on labels/scores/natural-language feedback from MLLMs acting as verifiers. Agreement bias means this feedback is   ineffective exactly when most needed—when agent behavior is flawed and requires correction. This can lead to unreliable feedback for filtering data (e.g., for behavior cloning or memory/tool construction) and for supporting self-improvement and online methods.
           <br>
           <br>
           In <b>self-improvement</b>, agreement bias prevents the (strong) MLLM verifier from delivering feedback about suboptimal behavior, hindering the agent's ability to learn from mistakes. In contrast, the SGV-based verifier promotes consistent gains across refinement iterations.
